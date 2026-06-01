@@ -1,0 +1,132 @@
+<div>
+    <div class="flex justify-between text-3xl text-gray-700 font-semibold">
+        <div>
+            Manage Inventory
+        </div>
+        <div>
+            <a href="{{ route('admin.food-inventory', ['category' => $record->id]) }}">
+                <x-button icon="arrow-left" slate label="Return" />
+            </a>
+        </div>
+    </div>
+    <div class="mt-5">
+        {{-- <x-select label="Select Item from Menu" placeholder="Select one item" wire:model="selectedItem">
+            @foreach ($category as $item)
+            <x-select.option label="{{$item->name}}" value="{{$item->id}}" />
+            @endforeach
+            </x-select> --}}
+            <div>
+                <span class="text-2xl text-[#009ff4]">{{$record->name}}</span>
+            </div>
+            <div class="mt-4">
+                <div class="px-4 sm:px-6 lg:px-8">
+                    <div class="mt-8 flow-root">
+                      <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                        <div class="inline-block min-w-full py-2 align-middle">
+                          @if ($selectedItem != null || $menus != null)
+                            <table class="min-w-full divide-y divide-gray-300">
+                                <thead>
+                                  <tr>
+                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 lg:pl-8">Item Code</th>
+                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 lg:pl-8">Name</th>
+                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Price</th>
+                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Quantity (Number of Servings)</th>
+                                    <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6 lg:pr-8">
+                                      <span class="sr-only">Edit</span>
+                                    </th>
+                                  </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200 bg-white">
+                                  @forelse ($menus as $item)
+                                  <tr>
+                                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium {{$item->item_code ? 'text-gray-900' : 'text-red-600' }} sm:pl-6 lg:pl-8">{{$item->item_code ?? 'N/A'}}</td>
+                                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">{{$item->name}}</td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">₱ {{number_format($item->price, 2)}}</td>
+                                    @php
+                                        $inv = \App\Models\FrontdeskInventory::where('branch_id', auth()->user()->branch_id)
+                                            ->where('frontdesk_menu_id', $item->id)
+                                            ->first();
+                                        $stock = $inv ? $inv->warehouse_stock : 0;
+                                    @endphp
+                                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium {{ $stock < 5 ? 'text-red-600' : 'text-gray-900' }} sm:pl-6 lg:pl-8">{{ $stock }}</td>
+                                    {{-- <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                        <input type="number" name="quantity" wire:model="quantities.{{ $loop->index }}" class="w-20 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                    </td> --}}
+                                    <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8">
+                                        <div class="flex gap-2 justify-end">
+                                            <button wire:click="addStock({{$item->id}})"
+                                                class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-md shadow-sm transition">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                                </svg>
+                                                Add Stock
+                                            </button>
+                                            <button wire:click="setStock({{$item->id}})"
+                                                class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold rounded-md shadow-sm transition">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Z" />
+                                                </svg>
+                                                Set Stock
+                                            </button>
+                                        </div>
+                                      </td>
+                                    {{-- <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8">
+                                      <a href="#" class="text-red-600 hover:text-red-900">Remove<span class="sr-only">, Lindsay Walton</span></a>
+                                    </td> --}}
+                                  </tr>
+                                  @empty
+                                  <span class="text-center italic text-lg text-gray-700">No Record Yet</span>
+                                  @endforelse
+                                  <!-- More people... -->
+                                </tbody>
+                              </table>
+
+                            {{-- <x-button emerald label="Save" wire:click="saveStock"/> --}}
+                          @else
+                            <span class="text-center italic text-lg text-gray-700">No Record Yet</span>
+                          @endif
+                        </div>
+                      </div>
+
+                      <x-modal wire:model.defer="add_stock_modal" max-width="xl">
+                        <x-card title="Add Stock">
+                          <div class="grid grid-cols-2 gap-4">
+                            <x-input label="Name" wire:model="menu_name" disabled />
+                            <x-input label="Price" wire:model="menu_price" disabled />
+                          </div>
+                          <div class="grid grid-cols-1 mt-4">
+                            <x-inputs.maskable mask="####" label="Quantity" wire:model.defer="menu_quantity" numeric />
+                          </div>
+                          <x-slot name="footer">
+                            <div class="flex justify-end gap-x-4">
+                              <x-button flat label="Cancel" x-on:click="close" />
+                              <x-button positive label="Save" wire:click="saveStock" spinner="saveStock" right-icon="arrow-narrow-right" />
+                            </div>
+                          </x-slot>
+                        </x-card>
+                      </x-modal>
+
+                      <x-modal wire:model.defer="set_stock_modal" max-width="xl">
+                        <x-card title="Set Kitchen Stock">
+                          <div class="grid grid-cols-2 gap-4">
+                            <x-input label="Name" wire:model="menu_name" disabled />
+                            <x-input label="Price" wire:model="menu_price" disabled />
+                          </div>
+                          <div class="grid grid-cols-1 mt-4">
+                            <x-inputs.maskable mask="####" label="Set quantity to" wire:model.defer="set_stock_quantity" numeric />
+                          </div>
+                          <p class="text-xs text-gray-500 mt-2">This will set the kitchen stock to the exact quantity entered, replacing the current value.</p>
+                          <x-slot name="footer">
+                            <div class="flex justify-end gap-x-4">
+                              <x-button flat label="Cancel" x-on:click="close" />
+                              <x-button warning label="Set Stock" wire:click="saveSetStock" spinner="saveSetStock" right-icon="arrow-narrow-right" />
+                            </div>
+                          </x-slot>
+                        </x-card>
+                      </x-modal>
+                    </div>
+                  </div>
+
+            </div>
+    </div>
+</div>
