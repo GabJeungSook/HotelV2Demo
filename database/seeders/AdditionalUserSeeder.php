@@ -17,7 +17,7 @@ class AdditionalUserSeeder extends Seeder
     {
         $pub_kitchen = User::create([
             'name' => 'PUB Kitchen',
-            'email' => 'pub-kitchen@gmail.com',
+            'email' => 'demo-pub-kitchen@gmail.com',
             'password' => bcrypt('password'),
             'branch_id' => 1,
             'branch_name' => 'ALMA RESIDENCES GENSAN',

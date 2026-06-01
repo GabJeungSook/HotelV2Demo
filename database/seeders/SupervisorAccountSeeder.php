@@ -1,4 +1,4 @@
-w<?php
+<?php
 
 namespace Database\Seeders;
 
@@ -23,11 +23,12 @@ class SupervisorAccountSeeder extends Seeder
 
         // Create test supervisor account if not exists
         $supervisor = User::firstOrCreate(
-            ['email' => 'supervisor@test.com'],
+            ['email' => 'demo-supervisor@gmail.com'],
             [
                 'name' => 'Test Supervisor',
                 'password' => Hash::make('password'),
-                'branch_id' => 1, // Change to your branch ID
+                'branch_id' => 1,
+                'branch_name' => 'ALMA RESIDENCES GENSAN',
             ]
         );
 

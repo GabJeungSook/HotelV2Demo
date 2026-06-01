@@ -27,7 +27,7 @@ class BranchSeeder extends Seeder
 
         $superadmin = User::create([
             'name' => 'Superadmin',
-            'email' => 'superadmin@gmail.com',
+            'email' => 'demo-superadmin@gmail.com',
             'password' => bcrypt('password'),
             'branch_id' => $branch->id,
             'branch_name' => $branch->name,
@@ -37,7 +37,7 @@ class BranchSeeder extends Seeder
 
         $admin = User::create([
             'name' => 'Admin',
-            'email' => 'admin@gmail.com',
+            'email' => 'demo-admin@gmail.com',
             'password' => bcrypt('password'),
             'branch_id' => $branch->id,
             'branch_name' => $branch->name,
@@ -47,7 +47,7 @@ class BranchSeeder extends Seeder
 
         $frontdesk = User::create([
             'name' => 'Frontdesk',
-            'email' => 'frontdesk@gmail.com',
+            'email' => 'demo-frontdesk@gmail.com',
             'password' => bcrypt('password'),
             'branch_id' => $branch->id,
             'branch_name' => $branch->name,
@@ -64,7 +64,7 @@ class BranchSeeder extends Seeder
 
         $kiosk = User::create([
             'name' => 'Kiosk',
-            'email' => 'kiosk@gmail.com',
+            'email' => 'demo-kiosk@gmail.com',
             'password' => bcrypt('password'),
             'branch_id' => $branch->id,
             'branch_name' => $branch->name,
@@ -74,7 +74,7 @@ class BranchSeeder extends Seeder
 
         $kitchen = User::create([
             'name' => 'Kitchen',
-            'email' => 'kitchen@gmail.com',
+            'email' => 'demo-kitchen@gmail.com',
             'password' => bcrypt('password'),
             'branch_id' => $branch->id,
             'branch_name' => $branch->name,
@@ -84,7 +84,7 @@ class BranchSeeder extends Seeder
 
         $back_office = User::create([
             'name' => 'Back Office',
-            'email' => 'back-office@gmail.com',
+            'email' => 'demo-back-office@gmail.com',
             'password' => bcrypt('password'),
             'branch_id' => $branch->id,
             'branch_name' => $branch->name,
@@ -94,7 +94,7 @@ class BranchSeeder extends Seeder
 
         $roomboy = User::create([
             'name' => 'Roomboy',
-            'email' => 'roomboy@gmail.com',
+            'email' => 'demo-roomboy@gmail.com',
             'password' => bcrypt('password'),
             'branch_id' => $branch->id,
             'branch_name' => $branch->name,
