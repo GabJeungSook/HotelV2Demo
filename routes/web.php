@@ -43,7 +43,7 @@ Route::middleware([
                 ->user()
                 ->hasRole('kiosk')
         ) {
-            return redirect()->route('kiosk.house-rules');
+            return redirect()->route('kiosk.dashboard');
         }
 
         if (

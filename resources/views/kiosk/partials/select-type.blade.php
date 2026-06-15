@@ -1,143 +1,184 @@
-<div class="pt-10 ">
-  <div class="flex items-end justify-between">
-    <div>
-      <h1 class="font-bold text-green-600">CHECK-IN</h1>
-      <h1 class="text-3xl uppercase font-extrabold text-gray-600">Select room type</h1>
-    </div>
-  </div>
-  <div class="mt-10">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      @foreach ($types as $type)
-      @php $assignedRoom = $typeRoomMap[$type->id] ?? null; @endphp
-      <button wire:key="{{ $type->id }}" wire:click="selectType({{ $type->id }}, {{ $assignedRoom ? $assignedRoom->id : 'null' }})" type="button" class="transition-all duration-200 {{ $type_id == $type->id ? 'scale-105' : 'opacity-80 hover:opacity-100' }} {{ !$assignedRoom ? 'opacity-40 cursor-not-allowed' : '' }}">
-        <div class="h-72 rounded-2xl overflow-hidden relative grid place-content-center border-4 transition-all duration-200 {{ $type_id == $type->id ? 'border-green-500 bg-green-50 shadow-2xl shadow-green-200 ring-4 ring-green-200' : 'border-gray-200 bg-gray-50' }}">
-          @if ($type_id == $type->id)
-            <div class="absolute top-3 right-3 bg-green-500 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
-          @endif
-           @switch($type->id)
-               @case($type->id == 1)
-               <svg class="mx-auto mb-10" width="96" height="96" viewBox="0 0 62 62" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g clip-path="url(#clip0_2_5)">
-                <path d="M62 0H0V62H62V0Z" fill="white" fill-opacity="0.01"/>
-                <path d="M10.3333 15.5C10.3333 13.3598 12.0682 11.625 14.2083 11.625H47.7917C49.9318 11.625 51.6667 13.3598 51.6667 15.5V29.7083H10.3333V15.5Z" stroke="black" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M7.75 45.2083V50.375" stroke="black" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M54.25 45.2083V50.375" stroke="black" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M37.4583 23.25H24.5417C22.4015 23.25 20.6667 24.9848 20.6667 27.125V29.7083H41.3333V27.125C41.3333 24.9848 39.5985 23.25 37.4583 23.25Z" fill="#2F88FF" stroke="black" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M5.16666 33.5833C5.16666 31.4432 6.90156 29.7083 9.04166 29.7083H52.9583C55.0985 29.7083 56.8333 31.4432 56.8333 33.5833V45.2083H5.16666V33.5833Z" stroke="black" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-                </g>
-                <defs>
-                <clipPath id="clip0_2_5">
-                <rect width="62" height="62" fill="white"/>
-                </clipPath>
-                </defs>
-                </svg>
-                @break
-                @case($type->id == 2)
-                <svg class="mx-auto mb-10" width="96" height="96" viewBox="0 0 67 67" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M67 0H0V67H67V0Z" fill="white" fill-opacity="0.01"/>
-                    <path d="M8 18.0714C8 15.8228 9.8888 14 12.2188 14H48.7812C51.1113 14 53 15.8228 53 18.0714V33H8V18.0714Z" stroke="black" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M5 50V55" stroke="black" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M56 50V55" stroke="black" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M24.75 26H16.25C13.9027 26 12 27.8803 12 30.2V33H29V30.2C29 27.8803 27.0973 26 24.75 26Z" fill="#2F88FF" stroke="black" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M44.75 26H36.25C33.9027 26 32 27.8803 32 30.2V33H49V30.2C49 27.8803 47.0973 26 44.75 26Z" fill="#2F88FF" stroke="black" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M3 37.25C3 34.9027 4.84683 33 7.125 33H53.875C56.1532 33 58 34.9027 58 37.25V50H3V37.25Z" stroke="black" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                @break
-                @case($type->id == 3)
-                <div class="flex space-x-4">
-                    <svg class="mx-auto mb-10" width="86" height="86" viewBox="0 0 62 62" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g clip-path="url(#clip0_2_5)">
-                        <path d="M62 0H0V62H62V0Z" fill="white" fill-opacity="0.01"/>
-                        <path d="M10.3333 15.5C10.3333 13.3598 12.0682 11.625 14.2083 11.625H47.7917C49.9318 11.625 51.6667 13.3598 51.6667 15.5V29.7083H10.3333V15.5Z" stroke="black" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M7.75 45.2083V50.375" stroke="black" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M54.25 45.2083V50.375" stroke="black" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M37.4583 23.25H24.5417C22.4015 23.25 20.6667 24.9848 20.6667 27.125V29.7083H41.3333V27.125C41.3333 24.9848 39.5985 23.25 37.4583 23.25Z" fill="#2F88FF" stroke="black" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M5.16666 33.5833C5.16666 31.4432 6.90156 29.7083 9.04166 29.7083H52.9583C55.0985 29.7083 56.8333 31.4432 56.8333 33.5833V45.2083H5.16666V33.5833Z" stroke="black" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </g>
-                        <defs>
-                        <clipPath id="clip0_2_5">
-                        <rect width="62" height="62" fill="white"/>
-                        </clipPath>
-                        </defs>
-                        </svg>
-                        <svg class="mx-auto mb-10" width="86" height="86" viewBox="0 0 62 62" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_2_5)">
-                            <path d="M62 0H0V62H62V0Z" fill="white" fill-opacity="0.01"/>
-                            <path d="M10.3333 15.5C10.3333 13.3598 12.0682 11.625 14.2083 11.625H47.7917C49.9318 11.625 51.6667 13.3598 51.6667 15.5V29.7083H10.3333V15.5Z" stroke="black" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M7.75 45.2083V50.375" stroke="black" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M54.25 45.2083V50.375" stroke="black" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M37.4583 23.25H24.5417C22.4015 23.25 20.6667 24.9848 20.6667 27.125V29.7083H41.3333V27.125C41.3333 24.9848 39.5985 23.25 37.4583 23.25Z" fill="#2F88FF" stroke="black" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M5.16666 33.5833C5.16666 31.4432 6.90156 29.7083 9.04166 29.7083H52.9583C55.0985 29.7083 56.8333 31.4432 56.8333 33.5833V45.2083H5.16666V33.5833Z" stroke="black" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-                            </g>
-                            <defs>
-                            <clipPath id="clip0_2_5">
-                            <rect width="62" height="62" fill="white"/>
-                            </clipPath>
-                            </defs>
-                            </svg>
-                </div>
-                @break
+<div class="pt-4">
+  @php
+    $hasAnyRoom = collect($types)->contains(fn($type) => isset($typeRoomMap[$type->id]));
+  @endphp
 
-               @default
-               <svg class="mx-auto mb-10" width="64" height="64" viewBox="0 0 62 62" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g clip-path="url(#clip0_2_5)">
-                <path d="M62 0H0V62H62V0Z" fill="white" fill-opacity="0.01"/>
-                <path d="M10.3333 15.5C10.3333 13.3598 12.0682 11.625 14.2083 11.625H47.7917C49.9318 11.625 51.6667 13.3598 51.6667 15.5V29.7083H10.3333V15.5Z" stroke="black" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M7.75 45.2083V50.375" stroke="black" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M54.25 45.2083V50.375" stroke="black" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M37.4583 23.25H24.5417C22.4015 23.25 20.6667 24.9848 20.6667 27.125V29.7083H41.3333V27.125C41.3333 24.9848 39.5985 23.25 37.4583 23.25Z" fill="#2F88FF" stroke="black" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M5.16666 33.5833C5.16666 31.4432 6.90156 29.7083 9.04166 29.7083H52.9583C55.0985 29.7083 56.8333 31.4432 56.8333 33.5833V45.2083H5.16666V33.5833Z" stroke="black" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-                </g>
-                <defs>
-                <clipPath id="clip0_2_5">
-                <rect width="62" height="62" fill="white"/>
-                </clipPath>
-                </defs>
-                </svg>
-
-           @endswitch
-
-                <h1 class="text-[2rem] font-extrabold uppercase relative {{ $type_id == $type->id ? 'text-green-700' : 'text-gray-700' }}">{{ $type->name }}</h1>
-                @if ($assignedRoom)
-                  <div class="mt-1 relative">
-                    <span class="text-lg font-bold {{ $type_id == $type->id ? 'text-green-600' : 'text-gray-500' }}">
-                        {{ $assignedRoom->numberWithFormat() }}</span>
-                    <span class="text-base {{ $type_id == $type->id ? 'text-green-500' : 'text-gray-400' }}">· {{ $assignedRoom->floor->numberWithFormat() }}</span>
-                  </div>
-                @else
-                  <div class="mt-1 relative">
-                    <span class="text-lg font-semibold text-red-400">No available room</span>
-                  </div>
-                @endif
+  @if (!$hasAnyRoom)
+    {{-- No Available Rooms State --}}
+    <div class="max-w-lg mx-auto bg-white rounded-2xl border border-[#87CEEB] p-6 md:p-8 text-center">
+      {{-- Warning Icon --}}
+      <div class="flex justify-center mb-4">
+        <div class="w-20 h-20 bg-[#D6EEFB] rounded-full flex items-center justify-center">
+          <svg class="w-12 h-12 text-[#00A0F5]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4.5c-.77-.833-2.694-.833-3.464 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z" />
+          </svg>
         </div>
+      </div>
+
+      {{-- Badge --}}
+      <div class="inline-flex items-center space-x-2 bg-gray-100 rounded-full px-4 py-1 mb-4">
+        <span class="w-2 h-2 bg-[#00A0F5] rounded-full"></span>
+        <span class="text-sm font-bold text-gray-700 uppercase">Fully Booked</span>
+      </div>
+
+      {{-- Heading --}}
+      <h1 class="text-3xl font-extrabold text-gray-800 uppercase leading-tight">No Slots<br>Available Today</h1>
+      <p class="mt-3 text-sm text-gray-500">We've reached full capacity for today's appointments. We apologize for the inconvenience.</p>
+
+      {{-- Separator --}}
+      <div class="border-t border-gray-200 my-6"></div>
+
+      {{-- Need Assistance --}}
+      <div class="bg-gray-50 rounded-xl p-4 flex items-center space-x-3">
+        <div class="w-10 h-10 bg-[#D6EEFB] rounded-full flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5 text-[#00A0F5]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/>
+          </svg>
+        </div>
+        <div class="text-left">
+          <p class="text-sm font-bold text-gray-700">NEED ASSISTANCE?</p>
+          <p class="text-xs text-gray-500">Approach our frontdesk for help.</p>
+        </div>
+      </div>
+
+      {{-- Refresh Button --}}
+      <div class="mt-6">
+        <button wire:click="$refresh"
+          class="inline-flex items-center space-x-2 text-gray-500 border border-gray-300 rounded-full px-6 py-2 hover:bg-gray-50 transition">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          <span class="font-semibold text-sm">Refresh</span>
+        </button>
+      </div>
+    </div>
+  @else
+  {{-- Main Card --}}
+  <div class="max-w-lg mx-auto bg-white rounded-2xl border border-[#87CEEB] p-6 md:p-8">
+    <h1 class="text-2xl md:text-3xl font-extrabold text-gray-800 uppercase text-center mb-8">Select Room Type</h1>
+
+    <div class="space-y-4">
+      @foreach ($types as $type)
+        @php $assignedRoom = $typeRoomMap[$type->id] ?? null; @endphp
+        <button wire:key="{{ $type->id }}" wire:click="selectType({{ $type->id }}, {{ $assignedRoom ? $assignedRoom->id : 'null' }})" type="button"
+          class="w-full transition-all duration-200 {{ !$assignedRoom ? 'opacity-40 cursor-not-allowed' : '' }}">
+          <div class="rounded-xl overflow-hidden border-2 transition-all duration-200 relative
+            {{ $type_id == $type->id ? 'border-[#00A0F5] shadow-lg shadow-blue-100 ring-2 ring-blue-100' : 'border-gray-200 bg-white' }}">
+
+            {{-- Selected checkmark badge --}}
+            @if ($type_id == $type->id)
+              <div class="absolute bottom-3 right-3 bg-[#00A0F5] text-white rounded-full w-8 h-8 flex items-center justify-center shadow z-10">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+            @endif
+
+            {{-- Bed Icon Area --}}
+            <div class="py-4 px-6 flex justify-center {{ $type_id == $type->id ? 'bg-[#7B8EC2]' : 'bg-white' }}">
+              @switch($type->id)
+                @case(1)
+                  <svg width="80" height="80" viewBox="0 0 62 62" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip_s{{ $type->id }})">
+                    <path d="M10.3333 15.5C10.3333 13.3598 12.0682 11.625 14.2083 11.625H47.7917C49.9318 11.625 51.6667 13.3598 51.6667 15.5V29.7083H10.3333V15.5Z" stroke="{{ $type_id == $type->id ? 'white' : '#1a1a2e' }}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M7.75 45.2083V50.375" stroke="{{ $type_id == $type->id ? 'white' : '#1a1a2e' }}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M54.25 45.2083V50.375" stroke="{{ $type_id == $type->id ? 'white' : '#1a1a2e' }}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M37.4583 23.25H24.5417C22.4015 23.25 20.6667 24.9848 20.6667 27.125V29.7083H41.3333V27.125C41.3333 24.9848 39.5985 23.25 37.4583 23.25Z" fill="{{ $type_id == $type->id ? '#A8B8E0' : '#2F88FF' }}" stroke="{{ $type_id == $type->id ? 'white' : '#1a1a2e' }}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5.16666 33.5833C5.16666 31.4432 6.90156 29.7083 9.04166 29.7083H52.9583C55.0985 29.7083 56.8333 31.4432 56.8333 33.5833V45.2083H5.16666V33.5833Z" stroke="{{ $type_id == $type->id ? 'white' : '#1a1a2e' }}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    </g>
+                    <defs><clipPath id="clip_s{{ $type->id }}"><rect width="62" height="62" fill="white"/></clipPath></defs>
+                  </svg>
+                  @break
+                @case(2)
+                  <svg width="80" height="80" viewBox="0 0 67 67" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 18.0714C8 15.8228 9.8888 14 12.2188 14H48.7812C51.1113 14 53 15.8228 53 18.0714V33H8V18.0714Z" stroke="{{ $type_id == $type->id ? 'white' : '#1a1a2e' }}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 50V55" stroke="{{ $type_id == $type->id ? 'white' : '#1a1a2e' }}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M56 50V55" stroke="{{ $type_id == $type->id ? 'white' : '#1a1a2e' }}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M24.75 26H16.25C13.9027 26 12 27.8803 12 30.2V33H29V30.2C29 27.8803 27.0973 26 24.75 26Z" fill="{{ $type_id == $type->id ? '#A8B8E0' : '#2F88FF' }}" stroke="{{ $type_id == $type->id ? 'white' : '#1a1a2e' }}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M44.75 26H36.25C33.9027 26 32 27.8803 32 30.2V33H49V30.2C49 27.8803 47.0973 26 44.75 26Z" fill="{{ $type_id == $type->id ? '#A8B8E0' : '#2F88FF' }}" stroke="{{ $type_id == $type->id ? 'white' : '#1a1a2e' }}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M3 37.25C3 34.9027 4.84683 33 7.125 33H53.875C56.1532 33 58 34.9027 58 37.25V50H3V37.25Z" stroke="{{ $type_id == $type->id ? 'white' : '#1a1a2e' }}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  @break
+                @case(3)
+                  <div class="flex space-x-2">
+                    <svg width="60" height="60" viewBox="0 0 62 62" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g clip-path="url(#clip_t1{{ $type->id }})">
+                      <path d="M10.3333 15.5C10.3333 13.3598 12.0682 11.625 14.2083 11.625H47.7917C49.9318 11.625 51.6667 13.3598 51.6667 15.5V29.7083H10.3333V15.5Z" stroke="{{ $type_id == $type->id ? 'white' : '#1a1a2e' }}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M7.75 45.2083V50.375" stroke="{{ $type_id == $type->id ? 'white' : '#1a1a2e' }}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M54.25 45.2083V50.375" stroke="{{ $type_id == $type->id ? 'white' : '#1a1a2e' }}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M37.4583 23.25H24.5417C22.4015 23.25 20.6667 24.9848 20.6667 27.125V29.7083H41.3333V27.125C41.3333 24.9848 39.5985 23.25 37.4583 23.25Z" fill="{{ $type_id == $type->id ? '#A8B8E0' : '#2F88FF' }}" stroke="{{ $type_id == $type->id ? 'white' : '#1a1a2e' }}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M5.16666 33.5833C5.16666 31.4432 6.90156 29.7083 9.04166 29.7083H52.9583C55.0985 29.7083 56.8333 31.4432 56.8333 33.5833V45.2083H5.16666V33.5833Z" stroke="{{ $type_id == $type->id ? 'white' : '#1a1a2e' }}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                      </g>
+                      <defs><clipPath id="clip_t1{{ $type->id }}"><rect width="62" height="62" fill="white"/></clipPath></defs>
+                    </svg>
+                    <svg width="60" height="60" viewBox="0 0 62 62" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g clip-path="url(#clip_t2{{ $type->id }})">
+                      <path d="M10.3333 15.5C10.3333 13.3598 12.0682 11.625 14.2083 11.625H47.7917C49.9318 11.625 51.6667 13.3598 51.6667 15.5V29.7083H10.3333V15.5Z" stroke="{{ $type_id == $type->id ? 'white' : '#1a1a2e' }}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M7.75 45.2083V50.375" stroke="{{ $type_id == $type->id ? 'white' : '#1a1a2e' }}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M54.25 45.2083V50.375" stroke="{{ $type_id == $type->id ? 'white' : '#1a1a2e' }}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M37.4583 23.25H24.5417C22.4015 23.25 20.6667 24.9848 20.6667 27.125V29.7083H41.3333V27.125C41.3333 24.9848 39.5985 23.25 37.4583 23.25Z" fill="{{ $type_id == $type->id ? '#A8B8E0' : '#2F88FF' }}" stroke="{{ $type_id == $type->id ? 'white' : '#1a1a2e' }}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M5.16666 33.5833C5.16666 31.4432 6.90156 29.7083 9.04166 29.7083H52.9583C55.0985 29.7083 56.8333 31.4432 56.8333 33.5833V45.2083H5.16666V33.5833Z" stroke="{{ $type_id == $type->id ? 'white' : '#1a1a2e' }}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                      </g>
+                      <defs><clipPath id="clip_t2{{ $type->id }}"><rect width="62" height="62" fill="white"/></clipPath></defs>
+                    </svg>
+                  </div>
+                  @break
+                @default
+                  <svg width="80" height="80" viewBox="0 0 62 62" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip_d{{ $type->id }})">
+                    <path d="M10.3333 15.5C10.3333 13.3598 12.0682 11.625 14.2083 11.625H47.7917C49.9318 11.625 51.6667 13.3598 51.6667 15.5V29.7083H10.3333V15.5Z" stroke="{{ $type_id == $type->id ? 'white' : '#1a1a2e' }}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M7.75 45.2083V50.375" stroke="{{ $type_id == $type->id ? 'white' : '#1a1a2e' }}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M54.25 45.2083V50.375" stroke="{{ $type_id == $type->id ? 'white' : '#1a1a2e' }}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M37.4583 23.25H24.5417C22.4015 23.25 20.6667 24.9848 20.6667 27.125V29.7083H41.3333V27.125C41.3333 24.9848 39.5985 23.25 37.4583 23.25Z" fill="{{ $type_id == $type->id ? '#A8B8E0' : '#2F88FF' }}" stroke="{{ $type_id == $type->id ? 'white' : '#1a1a2e' }}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5.16666 33.5833C5.16666 31.4432 6.90156 29.7083 9.04166 29.7083H52.9583C55.0985 29.7083 56.8333 31.4432 56.8333 33.5833V45.2083H5.16666V33.5833Z" stroke="{{ $type_id == $type->id ? 'white' : '#1a1a2e' }}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    </g>
+                    <defs><clipPath id="clip_d{{ $type->id }}"><rect width="62" height="62" fill="white"/></clipPath></defs>
+                  </svg>
+              @endswitch
+            </div>
+
+            {{-- Type label (for unselected) --}}
+            @if ($type_id != $type->id)
+              <div class="text-center py-1">
+                <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $type->name }}</span>
+              </div>
+            @endif
+
+            {{-- Room Info --}}
+            <div class="px-4 py-3 text-center {{ $type_id == $type->id ? 'bg-white' : '' }}">
+              @if ($assignedRoom)
+                <div class="flex items-baseline justify-center space-x-2">
+                  <span class="text-xs text-gray-400 uppercase">Room #</span>
+                  <span class="text-3xl font-extrabold text-gray-800">{{ $assignedRoom->number }}</span>
+                  <span class="text-sm font-bold text-gray-500 uppercase">{{ $assignedRoom->floor->numberWithFormat() }}</span>
+                </div>
+                <p class="text-[10px] text-gray-400 mt-1 uppercase tracking-wider">
+                  @if($type->id == 1)
+                    1 PILLOW | 1 BLANKET | 1 TOWEL
+                  @elseif($type->id == 2)
+                    2 PILLOWS | 1 BLANKET | 2 TOWELS
+                  @elseif($type->id == 3)
+                    2 PILLOWS | 2 BLANKETS | 2 TOWELS | 2 SINGLE BED
+                  @else
+                    PILLOWS | BLANKET | TOWELS
+                  @endif
+                </p>
+              @else
+                <span class="text-sm font-semibold text-red-400">No available room</span>
+              @endif
+            </div>
+          </div>
         </button>
       @endforeach
     </div>
-  </div>
-  <div class="fixed bottom-20 right-0 left-0">
-    <div class="flex justify-center">
-      @if ($type_id)
-        <button
-          wire:click="$set('steps', 3)"
-          class="font-medium px-8 py-3 text-white bg-green-600 rounded-2xl flex items-center gap-2 shadow-xl ring-4 ring-green-200 animate-pulse hover:animate-none hover:bg-green-700 transition-colors">
 
+    {{-- Next Button --}}
+    @if ($type_id)
+      <div class="mt-8 flex justify-center">
+        <button wire:click="$set('steps', 3)"
+          class="bg-[#00A0F5] hover:bg-[#0090dd] text-white font-bold text-lg py-3 px-16 rounded-full transition-all uppercase shadow-md active:scale-95">
           NEXT
-
-          <svg xmlns="http://www.w3.org/2000/svg"
-              class="w-14 h-14"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M13 7l5 5m0 0l-5 5m5-5H6" />
-          </svg>
-
-      </button>
-      @endif
-    </div>
+        </button>
+      </div>
+    @endif
   </div>
+  @endif
 </div>

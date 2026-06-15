@@ -35,6 +35,8 @@ class CheckIn extends Component
     public $name, $contact;
 
     public $discountEnabled = false;
+    public $longstay_preview = 0;
+    public $longstay_unit = 'days';
     //check_in details
     public $room_number, $room_type, $room_floor, $room_rate, $room_pay;
 
@@ -124,6 +126,25 @@ class CheckIn extends Component
     public function updatedLongstay()
     {
         $this->rate_id = null;
+        $this->calculateLongstayPreview();
+    }
+
+    public function updatedLongstayUnit()
+    {
+        $this->calculateLongstayPreview();
+    }
+
+    private function calculateLongstayPreview()
+    {
+        if ($this->longstay && $this->longstay >= 1 && $this->type_id) {
+            $maxAmount = Rate::where('branch_id', auth()->user()->branch_id)
+                ->where('type_id', $this->type_id)
+                ->max('amount');
+            $days = $this->longstay_unit === 'months' ? $this->longstay * 30 : $this->longstay;
+            $this->longstay_preview = ($maxAmount ?? 0) * $days;
+        } else {
+            $this->longstay_preview = 0;
+        }
     }
 
     public function selectRoom($room_id)
@@ -166,14 +187,18 @@ class CheckIn extends Component
 
             $this->steps = 4;
         } else {
+            $maxValue = $this->longstay_unit === 'months' ? 12 : 31;
             $this->validate([
-                'longstay' => 'required|integer|min:1|max:31',
+                'longstay' => 'required|integer|min:1|max:' . $maxValue,
             ],[
-                'longstay.required' => 'Please enter number of days.',
-                'longstay.integer' => 'Number of days must be a whole number.',
-                'longstay.min' => 'Number of days must be at least 1.',
-                'longstay.max' => 'Number of days must not exceed 31.',
+                'longstay.required' => 'Please enter a value.',
+                'longstay.integer' => 'Must be a whole number.',
+                'longstay.min' => 'Must be at least 1.',
+                'longstay.max' => 'Must not exceed ' . $maxValue . '.',
             ]);
+
+            // Convert months to days for calculation
+            $totalDays = $this->longstay_unit === 'months' ? $this->longstay * 30 : $this->longstay;
 
             $long = StayingHour::where('branch_id', auth()->user()->branch_id)
                 ->where('number', 24)
@@ -188,7 +213,7 @@ class CheckIn extends Component
                 $this->room_rate =
                     Rate::where('branch_id', auth()->user()->branch_id)
                         ->where('type_id', $this->type_id)
-                        ->max('amount') * $this->longstay;
+                        ->max('amount') * $totalDays;
 
                 $this->rate_id = Rate::where(
                     'branch_id',
@@ -327,7 +352,7 @@ class CheckIn extends Component
                     'type_id' => $this->type_id,
                     'static_amount' => $this->room_pay,
                     'is_long_stay' => $this->longstay ? true : false,
-                    'number_of_days' => $this->longstay ?? 0,
+                    'number_of_days' => $this->longstay ? ($this->longstay_unit === 'months' ? $this->longstay * 30 : $this->longstay) : 0,
                     'has_discount' => $this->discountEnabled,
                     'discount_amount' => $this->discountEnabled ? $this->discount_amount : 0,
                 ]);
@@ -363,7 +388,7 @@ class CheckIn extends Component
 
     public function redirectToHome()
     {
-        return redirect()->route('kiosk.house-rules');
+        return redirect()->route('kiosk.dashboard');
     }
 
     public function applyDiscount()

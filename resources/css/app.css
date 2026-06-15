@@ -7,6 +7,26 @@
   display: none;
 }
 
+/* Demo Project Badge */
+body::before {
+  content: 'DEMO PROJECT ONLY';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: #dc2626;
+  color: white;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 3px 0;
+}
+body {
+  padding-top: 24px;
+}
+
 .filament-tables-header-cell button {
     @apply !text-white;
     @apply !border-gray-100;

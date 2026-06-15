@@ -1,73 +1,69 @@
 <x-kiosk-layout-update>
-  <div class="px-4 md:px-10">
-    <h1 class="text-3xl md:text-5xl pt-10 md:pt-20 text-gray-600 uppercase font-extrabold text-center">Select Transaction</h1>
-    <div class="pt-10 md:pt-16 flex flex-col xl:flex-row items-center md:space-x-10 space-y-8 md:space-y-0 justify-center">
-      <a href="{{ route('kiosk.check-in') }}"
-        class="w-full max-w-md md:w-[28rem] border relative h-64 md:h-80 bg-gradient-to-bl overflow-hidden from-green-800 shadow-xl via-green-800 to-transparent rounded-2xl flex-shrink-0">
-        <svg class="h-48 md:h-72 text-white absolute -right-16 md:-right-28 opacity-10 top-0" xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 36 36" preserveAspectRatio="xMidYMid meet"
-          fill="currentColor">
-          <title>login-solid</title>
-          <path
-            d="M28,4H12a2,2,0,0,0-2,2v7h8.5L15.12,9.71a1,1,0,0,1,1.41-1.41l5.79,5.79-5.79,5.79a1,1,0,0,1-1.41-1.41L18.5,15H10V30a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V6A2,2,0,0,0,28,4Z"
-            class="clr-i-solid clr-i-solid-path-1"></path>
-          <path d="M10,13H4a1,1,0,0,0-1,1,1,1,0,0,0,1,1h6Z" class="clr-i-solid clr-i-solid-path-2"></path>
-          <rect x="0" y="0" width="36" height="36" fill-opacity="0"></rect>
-        </svg>
-        <div class="pt-4 md:pt-6 px-6 md:px-10 pb-6 md:pb-10">
-          <h1 class="font-bold text-white text-xl md:text-3xl">CHECK-IN</h1>
-        </div>
-        <div class="flex justify-center items-center">
-          <div class="w-24 h-24 md:w-40 md:h-40 flex justify-center items-center rounded-full p-2 md:p-3 shadow-xl bg-green-700">
-            <svg class="h-16 w-16 md:h-28 md:w-28 text-white" xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 36 36"
-              preserveAspectRatio="xMidYMid meet" fill="currentColor">
-              <title>login-solid</title>
-              <path
-                d="M28,4H12a2,2,0,0,0-2,2v7h8.5L15.12,9.71a1,1,0,0,1,1.41-1.41l5.79,5.79-5.79,5.79a1,1,0,0,1-1.41-1.41L18.5,15H10V30a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V6A2,2,0,0,0,28,4Z"
-                class="clr-i-solid clr-i-solid-path-1"></path>
-              <path d="M10,13H4a1,1,0,0,0-1,1,1,1,0,0,0,1,1h6Z" class="clr-i-solid clr-i-solid-path-2"></path>
-              <rect x="0" y="0" width="36" height="36" fill-opacity="0"></rect>
-            </svg>
-          </div>
-        </div>
-      </a>
-      <span class="font-bold text-lg text-gray-50 md:mx-0 mx-auto">OR</span>
-      <a href="{{ route('kiosk.check-out') }}"
-        class="w-full max-w-md md:w-[28rem] border relative h-64 md:h-80 bg-gradient-to-bl shadow-xl overflow-hidden from-red-800 via-red-800 to-transparent rounded-2xl flex-shrink-0">
+  <div class="flex flex-col items-center min-h-[85vh]">
+    {{-- Welcome Section --}}
+    <div class="w-full max-w-lg text-center pt-8 pb-6">
+      <p class="text-lg md:text-xl text-gray-500 font-medium tracking-wide">WELCOME TO</p>
+      <h1 class="text-3xl md:text-4xl font-extrabold text-gray-800 mt-1 uppercase">{{ auth()->user()->branch->name ?? 'Hotel' }}</h1>
+      <p class="text-sm md:text-base text-gray-400 italic mt-2">"A Great and Affordable Hotel to Stay!"</p>
+      {{-- Amenity Icons --}}
+      <div class="flex justify-center items-center space-x-3 mt-4">
+        <img src="{{ asset('images/spotify.png') }}" alt="Spotify" class="w-7 h-7 object-contain">
+        <img src="{{ asset('images/netflix.png') }}" alt="Netflix" class="w-7 h-7 object-contain">
+        <img src="{{ asset('images/wifi.png') }}" alt="WiFi" class="w-7 h-7 object-contain">
+        <img src="{{ asset('images/shower.png') }}" alt="Shower" class="w-7 h-7 object-contain">
+        <img src="{{ asset('images/air.png') }}" alt="Aircon" class="w-7 h-7 object-contain">
+      </div>
+    </div>
 
-        <svg class="h-48 md:h-72 text-white absolute -right-16 md:-right-28 opacity-10 top-0" xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 36 36"
-          preserveAspectRatio="xMidYMid meet" fill="currentColor">
-          <title>logout-solid</title>
-          <path
-            d="M23,4H7A2,2,0,0,0,5,6V30a2,2,0,0,0,2,2H23a2,2,0,0,0,2-2V24H15.63a1,1,0,0,1-1-1,1,1,0,0,1,1-1H25V6A2,2,0,0,0,23,4Z"
-            class="clr-i-solid clr-i-solid-path-1"></path>
-          <path d="M28.16,17.28a1,1,0,0,0-1.41,1.41L30.13,22H25v2h5.13l-3.38,3.46a1,1,0,1,0,1.41,1.41L34,23.07Z"
-            class="clr-i-solid clr-i-solid-path-2"></path>
-          <rect x="0" y="0" width="36" height="36" fill-opacity="0"></rect>
+    {{-- Select Transaction Section --}}
+    <div class="w-full max-w-md bg-gray-50 rounded-3xl px-8 py-8 mt-4">
+      <h2 class="text-xl font-extrabold text-gray-800 text-center uppercase mb-6">Select Transaction</h2>
+
+      {{-- Check-In Button --}}
+      <a href="{{ route('kiosk.house-rules') }}"
+        class="flex items-center bg-[#00A0F5] hover:bg-[#0090dd] text-white rounded-full px-6 py-4 mb-4 transition-all shadow-md active:scale-95">
+        <div class="w-10 h-10 flex items-center justify-center mr-4">
+          <svg class="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+          </svg>
+        </div>
+        <div class="flex-1">
+          <span class="text-xl md:text-2xl font-bold block">CHECK-IN</span>
+          <span class="text-xs opacity-80">Start your stay</span>
+        </div>
+        <svg class="w-6 h-6 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
         </svg>
-        <div class="pt-4 md:pt-6 px-6 md:px-10 pb-6 md:pb-10">
-          <h1 class="font-bold text-white text-xl md:text-3xl">CHECK-OUT</h1>
+      </a>
+
+      {{-- Check-Out Button --}}
+      <a href="{{ route('kiosk.check-out') }}"
+        class="flex items-center bg-white hover:bg-gray-50 text-[#00A0F5] border-2 border-[#00A0F5] rounded-full px-6 py-4 transition-all shadow-sm active:scale-95">
+        <div class="w-10 h-10 flex items-center justify-center mr-4">
+          <svg class="w-7 h-7 text-[#00A0F5]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+          </svg>
         </div>
-        <div class="flex justify-center items-center">
-          <div class="w-24 h-24 md:w-40 md:h-40 flex justify-center items-center rounded-full p-2 md:p-3 shadow-xl bg-red-700">
-            <svg class="h-16 w-16 md:h-28 md:w-28 text-white" xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 36 36"
-              preserveAspectRatio="xMidYMid meet" fill="currentColor">
-              <title>logout-solid</title>
-              <path
-                d="M23,4H7A2,2,0,0,0,5,6V30a2,2,0,0,0,2,2H23a2,2,0,0,0,2-2V24H15.63a1,1,0,0,1-1-1,1,1,0,0,1,1-1H25V6A2,2,0,0,0,23,4Z"
-                class="clr-i-solid clr-i-solid-path-1"></path>
-              <path d="M28.16,17.28a1,1,0,0,0-1.41,1.41L30.13,22H25v2h5.13l-3.38,3.46a1,1,0,1,0,1.41,1.41L34,23.07Z"
-                class="clr-i-solid clr-i-solid-path-2"></path>
-              <rect x="0" y="0" width="36" height="36" fill-opacity="0"></rect>
-            </svg>
-          </div>
+        <div class="flex-1">
+          <span class="text-xl md:text-2xl font-bold block">CHECKOUT</span>
+          <span class="text-xs opacity-70">Settle and depart</span>
         </div>
+        <svg class="w-6 h-6 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
       </a>
     </div>
+
+    {{-- Footer --}}
+    <div class="mt-auto pb-6 pt-8 flex items-center justify-center space-x-8 text-gray-400 text-sm">
+      <div class="flex items-center space-x-2">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+        <span>{{ auth()->user()->branch->name ?? 'Hotel' }}</span>
+      </div>
+      <div class="flex items-center space-x-2">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+        <span>+639123456789</span>
+      </div>
+    </div>
   </div>
-  <script>
-</script>
 </x-kiosk-layout-update>

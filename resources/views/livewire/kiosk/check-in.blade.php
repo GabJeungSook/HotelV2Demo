@@ -7,7 +7,7 @@
     @include('kiosk.partials.select-rate')
   </div>
 
-  <div x-cloak x-show="step == 4">
+  <div x-cloak x-show="step == 4" x-effect="if (step == 4) $nextTick(() => document.getElementById('guest_name')?.focus())">
     @include('kiosk.partials.summary')
   </div>
   <div x-cloak x-show="step == 5">
