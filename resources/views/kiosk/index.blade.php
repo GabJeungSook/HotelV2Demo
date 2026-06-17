@@ -7,6 +7,7 @@
       <p class="text-sm md:text-base text-gray-400 italic mt-2">"A Great and Affordable Hotel to Stay!"</p>
       {{-- Amenity Icons --}}
       <div class="flex justify-center items-center space-x-3 mt-4">
+        <img src="{{ asset('images/youtube.png') }}" alt="YouTube" class="w-7 h-7 object-contain">
         <img src="{{ asset('images/spotify.png') }}" alt="Spotify" class="w-7 h-7 object-contain">
         <img src="{{ asset('images/netflix.png') }}" alt="Netflix" class="w-7 h-7 object-contain">
         <img src="{{ asset('images/wifi.png') }}" alt="WiFi" class="w-7 h-7 object-contain">
@@ -16,7 +17,7 @@
     </div>
 
     {{-- Select Transaction Section --}}
-    <div class="w-full max-w-md bg-gray-50 rounded-3xl px-8 py-8 mt-4">
+    <div class="w-full max-w-md bg-[#E8F7FF] rounded-3xl px-8 py-8 mt-12">
       <h2 class="text-xl font-extrabold text-gray-800 text-center uppercase mb-6">Select Transaction</h2>
 
       {{-- Check-In Button --}}

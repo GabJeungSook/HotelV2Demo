@@ -35,6 +35,7 @@ class CheckIn extends Component
     public $name, $contact;
 
     public $discountEnabled = false;
+    public $discountType = null;
     public $longstay_preview = 0;
     public $longstay_unit = 'days';
     //check_in details
@@ -104,6 +105,7 @@ class CheckIn extends Component
     {
         $this->getTypes();
         $this->discountEnabled = false;
+        $this->discountType = null;
         $this->discount_amount = 0;
 
         $this->steps = 1;
@@ -112,10 +114,10 @@ class CheckIn extends Component
     public function selectType($type_id, $room_id)
     {
         if (!$room_id) {
-            $this->dialog()->error(
-                $title = 'SORRY',
-                $description = 'There is no available room in this type.'
-            );
+            $this->dispatchBrowserEvent('kiosk-error', [
+                'title' => 'SORRY',
+                'description' => 'There is no available room in this type.',
+            ]);
             return;
         }
 
@@ -226,11 +228,10 @@ class CheckIn extends Component
                 $this->room_pay = $this->room_rate;
                 $this->steps = 4;
             } else {
-                $this->dialog()->error(
-                    $title = 'SORRY',
-                    $description =
-                        'Long Stay rate is not set yet. Please contact the administrator.'
-                );
+                $this->dispatchBrowserEvent('kiosk-error', [
+                    'title' => 'SORRY',
+                    'description' => 'Long Stay rate is not set yet. Please contact the administrator.',
+                ]);
             }
         }
     }
@@ -278,10 +279,10 @@ class CheckIn extends Component
 
                 if ($room) {
                     DB::rollBack();
-                    $this->dialog()->error(
-                        'SORRY',
-                        'Room is already occupied. Please select another room.'
-                    );
+                    $this->dispatchBrowserEvent('kiosk-error', [
+                        'title' => 'SORRY',
+                        'description' => 'Room is already occupied. Please select another room.',
+                    ]);
                     return;
                 }
 
@@ -297,10 +298,10 @@ class CheckIn extends Component
 
                 if ($temporaryCheckInKiosk || $temporaryReserved) {
                     DB::rollBack();
-                    $this->dialog()->error(
-                        'SORRY',
-                        'Room is already reserved. Please select another room.'
-                    );
+                    $this->dispatchBrowserEvent('kiosk-error', [
+                        'title' => 'SORRY',
+                        'description' => 'Room is already reserved. Please select another room.',
+                    ]);
                     return;
                 }
 
@@ -317,10 +318,10 @@ class CheckIn extends Component
                     $ghostDate = $openCheckin->check_in_at
                         ? Carbon::parse($openCheckin->check_in_at)->format('M d, Y g:i A')
                         : 'unknown date';
-                    $this->dialog()->error(
-                        'SORRY',
-                        "Room has unresolved previous guest: {$ghostName} (checked in {$ghostDate}). Please contact the front desk."
-                    );
+                    $this->dispatchBrowserEvent('kiosk-error', [
+                        'title' => 'SORRY',
+                        'description' => "Room has unresolved previous guest: {$ghostName} (checked in {$ghostDate}). Please contact the front desk.",
+                    ]);
                     return;
                 }
 
@@ -391,14 +392,17 @@ class CheckIn extends Component
         return redirect()->route('kiosk.dashboard');
     }
 
-    public function applyDiscount()
+    public function applyDiscount($type)
     {
-      
-       if($this->discountEnabled) {
-        $this->discount_amount = auth()->user()->branch->discount_amount;
-       } else {
-        $this->discount_amount = 0;
-       }
+        if ($this->discountType === $type) {
+            $this->discountType = null;
+            $this->discountEnabled = false;
+            $this->discount_amount = 0;
+        } else {
+            $this->discountType = $type;
+            $this->discountEnabled = true;
+            $this->discount_amount = auth()->user()->branch->discount_amount;
+        }
     }
 
     public function backRoom()

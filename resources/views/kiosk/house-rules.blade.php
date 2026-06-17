@@ -63,7 +63,7 @@
       {{-- Agree Button --}}
       <div class="mt-6 flex justify-center">
         <a x-bind:href="agreed ? '{{ route('kiosk.check-in') }}' : '#'"
-           x-bind:class="agreed ? 'bg-green-500 hover:bg-green-600 cursor-pointer' : 'bg-gray-300 cursor-not-allowed'"
+           x-bind:class="agreed ? 'bg-[#00A0F5] hover:bg-[#0090dd] cursor-pointer' : 'bg-gray-300 cursor-not-allowed'"
            @click="if(!agreed) $event.preventDefault()"
            class="px-12 py-3 text-white font-bold text-base rounded-full transition duration-200 uppercase">
           AGREE & CONTINUE

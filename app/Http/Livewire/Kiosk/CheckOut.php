@@ -47,10 +47,10 @@ class CheckOut extends Component
             ->first();
 
         if (!$checkInDetail) {
-            $this->dialog()->error(
-                $title = 'Invalid Room Number',
-                $description = 'No active check-in found for this room number.'
-            );
+            $this->dispatchBrowserEvent('kiosk-error', [
+                'title' => 'Invalid Room Number',
+                'description' => 'No active check-in found for this room number.',
+            ]);
             $this->room_number = null;
             return;
         }
@@ -78,10 +78,10 @@ class CheckOut extends Component
             ->first();
 
         if (!$checkInDetail) {
-            $this->dialog()->error(
-                $title = 'Invalid QR Code',
-                $description = 'No active check-in found for this QR code.'
-            );
+            $this->dispatchBrowserEvent('kiosk-error', [
+                'title' => 'Invalid QR Code',
+                'description' => 'No active check-in found for this QR code.',
+            ]);
             $this->qr_code = null;
             return;
         }
@@ -89,10 +89,10 @@ class CheckOut extends Component
         $guest = $checkInDetail->guest;
 
         if ($guest->has_kiosk_check_out) {
-            $this->dialog()->error(
-                $title = 'Already Checked Out',
-                $description = 'This guest has already completed kiosk check-out.'
-            );
+            $this->dispatchBrowserEvent('kiosk-error', [
+                'title' => 'Already Checked Out',
+                'description' => 'This guest has already completed kiosk check-out.',
+            ]);
             $this->qr_code = null;
             return;
         }

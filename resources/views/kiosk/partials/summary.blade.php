@@ -3,7 +3,7 @@
   <div class="max-w-lg mx-auto bg-white rounded-2xl border border-[#87CEEB] p-6 md:p-8">
     {{-- Back button --}}
     <div class="flex justify-end mb-4">
-      <button x-on:click="step = 3"
+      <button x-on:click="showSummary ? showSummary = false : step = 3"
         class="inline-flex items-center text-[#00A0F5] font-semibold text-sm">
         <svg class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
         BACK
@@ -15,7 +15,7 @@
       <h1 class="text-2xl md:text-3xl font-extrabold text-gray-800 uppercase text-center">Fill-Out Information</h1>
 
       {{-- Guest Info Card --}}
-      <div class="mt-6 bg-gray-50 rounded-xl p-5">
+      <div class="mt-6 bg-[#E8F7FF] rounded-xl p-5">
         <h2 class="text-lg font-bold text-gray-800 text-center uppercase">Guest Information</h2>
         <p class="text-sm text-gray-400 text-center mt-1">Please fill-out your details below</p>
 
@@ -58,19 +58,37 @@
           @if($discount_available)
             <div class="mt-4">
               <p class="text-sm font-bold text-gray-700 mb-2 uppercase">Available Discounts</p>
-              <div class="flex items-center justify-between bg-white rounded-lg p-3 border border-gray-200">
-                <div class="flex items-center space-x-2">
-                  <span class="bg-[#00A0F5] text-white text-xs font-bold px-2 py-1 rounded">PWD</span>
-                  <div>
+              <div class="space-y-2">
+                {{-- PWD --}}
+                <div class="flex items-center justify-between bg-white rounded-lg p-3 border border-gray-200">
+                  <div class="flex items-center space-x-2">
+                    <span class="bg-[#00A0F5] text-white text-xs font-bold px-2 py-1 rounded">PWD</span>
                     <p class="text-sm font-semibold text-gray-700">Person with disability</p>
-                    <p class="text-xs text-gray-400">{{ number_format($discount_amount, 0) }} pesos discount</p>
+                  </div>
+                  <div class="flex items-center space-x-3">
+                    <span class="text-sm font-semibold text-gray-700">₱{{ number_format(auth()->user()->branch->discount_amount, 2) }}</span>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                      <input type="checkbox" wire:click="applyDiscount('pwd')" {{ $discountType === 'pwd' ? 'checked' : '' }} class="sr-only peer">
+                      <div class="w-12 h-7 bg-gray-300 rounded-full peer-checked:bg-[#00A0F5] transition-colors duration-300"></div>
+                      <div class="absolute top-0.5 left-0.5 w-6 h-6 bg-white rounded-full shadow transition-transform duration-300 peer-checked:translate-x-5"></div>
+                    </label>
                   </div>
                 </div>
-                <label class="relative inline-flex items-center cursor-pointer">
-                  <input type="checkbox" wire:model="discountEnabled" wire:change="applyDiscount" class="sr-only peer">
-                  <div class="w-12 h-7 bg-gray-300 rounded-full peer-checked:bg-[#00A0F5] transition-colors duration-300"></div>
-                  <div class="absolute top-0.5 left-0.5 w-6 h-6 bg-white rounded-full shadow transition-transform duration-300 peer-checked:translate-x-5"></div>
-                </label>
+                {{-- Senior Citizen --}}
+                <div class="flex items-center justify-between bg-white rounded-lg p-3 border border-gray-200">
+                  <div class="flex items-center space-x-2">
+                    <span class="bg-[#00A0F5] text-white text-xs font-bold px-2 py-1 rounded">SC</span>
+                    <p class="text-sm font-semibold text-gray-700">Senior Citizen</p>
+                  </div>
+                  <div class="flex items-center space-x-3">
+                    <span class="text-sm font-semibold text-gray-700">₱{{ number_format(auth()->user()->branch->discount_amount, 2) }}</span>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                      <input type="checkbox" wire:click="applyDiscount('senior')" {{ $discountType === 'senior' ? 'checked' : '' }} class="sr-only peer">
+                      <div class="w-12 h-7 bg-gray-300 rounded-full peer-checked:bg-[#00A0F5] transition-colors duration-300"></div>
+                      <div class="absolute top-0.5 left-0.5 w-6 h-6 bg-white rounded-full shadow transition-transform duration-300 peer-checked:translate-x-5"></div>
+                    </label>
+                  </div>
+                </div>
               </div>
             </div>
           @endif
@@ -173,7 +191,7 @@
           <div class="flex justify-between items-center">
             <span class="flex items-center space-x-2 text-gray-500 font-semibold">
               <svg class="w-4 h-4 text-[#00A0F5]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
-              <span>DISCOUNT <span class="text-[#00A0F5]">(PWD)</span></span>
+              <span>DISCOUNT <span class="text-[#00A0F5]">({{ $discountType === 'senior' ? 'SC' : 'PWD' }})</span></span>
             </span>
             <span class="font-semibold text-red-500">-P{{ number_format($discount_amount, 2) }}</span>
           </div>
