@@ -31,4 +31,8 @@ return [
 
     'supports_credentials' => false,
 
+    'except' => [
+        'api/guests/search',
+    ],
+
 ];

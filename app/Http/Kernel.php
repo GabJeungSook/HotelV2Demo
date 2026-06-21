@@ -71,5 +71,6 @@ class Kernel extends HttpKernel
             \Spatie\Permission\Middlewares\PermissionMiddleware::class,
         'role_or_permission' =>
             \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
+        'verify.api.key' => \App\Http\Middleware\VerifyApiKey::class,
     ];
 }
