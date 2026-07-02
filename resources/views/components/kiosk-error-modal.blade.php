@@ -42,9 +42,9 @@
     <p class="mt-2 text-sm text-gray-500" x-text="description"></p>
 
     {{-- OK Button --}}
-    <div class="mt-6">
+    <div class="mt-6 flex justify-center">
       <button @click="show = false"
-        class="w-full bg-red-400 hover:bg-red-500 text-white font-bold text-lg py-3 rounded-full transition-all shadow-md active:scale-95">
+        class="bg-red-500 hover:bg-red-600 text-white font-bold text-lg py-3 px-16 rounded-full transition-all shadow-md active:scale-95">
         OK
       </button>
     </div>

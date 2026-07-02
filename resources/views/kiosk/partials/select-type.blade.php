@@ -73,7 +73,7 @@
             @endif
 
             {{-- Bed Icon Area --}}
-            <div class="py-4 px-6 flex justify-center {{ $type_id == $type->id ? 'bg-[#7B8EC2]' : 'bg-white' }}">
+            <div class="py-4 px-6 flex justify-center {{ $type_id == $type->id ? 'bg-[#1a1a2e]/70' : 'bg-white' }}">
               @switch($type->id)
                 @case(1)
                   <svg width="80" height="80" viewBox="0 0 62 62" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -138,19 +138,19 @@
             {{-- Type label (for unselected) --}}
             @if ($type_id != $type->id)
               <div class="text-center py-1">
-                <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">{{ $type->name }}</span>
+                <span class="text-sm font-bold text-gray-500 uppercase tracking-wider">{{ $type->name }}</span>
               </div>
             @endif
 
             {{-- Room Info --}}
-            <div class="px-4 py-3 text-center {{ $type_id == $type->id ? 'bg-white' : '' }}">
+            <div class="px-5 py-4 text-center {{ $type_id == $type->id ? 'bg-white' : '' }}">
               @if ($assignedRoom)
                 <div class="flex items-baseline justify-center space-x-2">
-                  <span class="text-xs text-gray-400 uppercase">Room #</span>
-                  <span class="text-3xl font-extrabold text-gray-800">{{ $assignedRoom->number }}</span>
-                  <span class="text-sm font-bold text-gray-500 uppercase">{{ $assignedRoom->floor->numberWithFormat() }}</span>
+                  <span class="text-sm text-gray-400 uppercase">Room #</span>
+                  <span class="text-4xl font-extrabold text-gray-800">{{ $assignedRoom->number }}</span>
+                  <span class="text-base font-bold text-gray-500 uppercase">{{ $assignedRoom->floor->numberWithFormat() }}</span>
                 </div>
-                <p class="text-[10px] text-gray-400 mt-1 uppercase tracking-wider">
+                <p class="text-xs text-gray-400 mt-1 uppercase tracking-wider">
                   @if($type->id == 1)
                     1 PILLOW | 1 BLANKET | 1 TOWEL
                   @elseif($type->id == 2)
@@ -179,6 +179,14 @@
         </button>
       </div>
     @endif
+
+    {{-- Cancel Transaction --}}
+    <div class="mt-6 flex justify-center">
+      <button wire:click="redirectToHome" type="button"
+        class="text-[#00A0F5] hover:text-[#0090dd] font-semibold text-sm uppercase tracking-wide transition">
+        CANCEL TRANSACTION
+      </button>
+    </div>
   </div>
   @endif
 </div>

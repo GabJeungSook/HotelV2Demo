@@ -35,6 +35,7 @@
         spinner="redirectToCheckInCO" />
         <x-button label="Kiosk Batch" icon="eye" primary wire:click="showKioskBatch"
         spinner="showKioskBatch" />
+        <x-button label="Room Queue" icon="view-list" secondary href="{{ route('frontdesk.kiosk-room-queue') }}" />
     </div>
     <div class="mt-5 flex flex-wrap gap-2 items-center justify-between bg-white rounded-lg px-4 py-3 shadow-sm border border-gray-100">
       <div class="flex flex-wrap gap-2 items-center">

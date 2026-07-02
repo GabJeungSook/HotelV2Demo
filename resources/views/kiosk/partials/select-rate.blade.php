@@ -2,7 +2,7 @@
   {{-- Main Card --}}
   <div class="max-w-lg mx-auto bg-white rounded-2xl border border-[#87CEEB] p-6 md:p-8">
     {{-- Back button --}}
-    <div class="flex justify-end mb-4">
+    <div class="flex justify-start mb-4">
       <button x-on:click="step = 1" class="inline-flex items-center text-[#00A0F5] font-semibold text-sm">
         <svg class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
         BACK
@@ -21,6 +21,14 @@
             <div class="flex-1 py-4 px-5 text-left bg-white">
               <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Staying Hours:</p>
               <p class="text-2xl font-extrabold text-gray-800">{{ $rate->stayingHour->number }} HOURS</p>
+              @if ($loop->first)
+                <span class="mt-1 inline-flex items-center gap-1 border border-orange-400 text-orange-500 bg-orange-50 rounded-md px-2 py-0.5 text-[10px] font-bold">
+                  <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M13.5 0.67s0.74 2.65 0.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l0.03-0.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5 0.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-0.36 3.6-1.21 4.62-2.58 0.39 1.29 0.59 2.65 0.59 4.04 0 2.65-2.15 4.8-4.8 4.8z"/>
+                  </svg>
+                  Hot offer
+                </span>
+              @endif
             </div>
             {{-- Right: Rate --}}
             <div class="w-32 py-4 px-4 bg-[#D6EEFB] flex flex-col justify-center items-center">
@@ -28,12 +36,6 @@
               <p class="text-xl font-extrabold text-gray-800">P{{ number_format($rate->amount, 0) }}</p>
               <p class="text-[8px] text-gray-400 mt-0.5">+P200 REMOTE AND KEY DEPOSIT</p>
             </div>
-            {{-- Hot Offer badge on first rate --}}
-            @if ($loop->first)
-              <div class="absolute bottom-1 left-[40%] transform -translate-x-1/2">
-                <span class="text-[10px] font-bold">🔥 HOT OFFER</span>
-              </div>
-            @endif
           </div>
         </button>
       @endforeach

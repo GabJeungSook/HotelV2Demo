@@ -2,7 +2,7 @@
   {{-- Main Card --}}
   <div class="max-w-lg mx-auto bg-white rounded-2xl border border-[#87CEEB] p-6 md:p-8">
     {{-- Back button --}}
-    <div class="flex justify-end mb-4">
+    <div class="flex justify-start mb-4">
       <button x-on:click="showSummary ? showSummary = false : step = 3"
         class="inline-flex items-center text-[#00A0F5] font-semibold text-sm">
         <svg class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
